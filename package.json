@@ -78,7 +78,8 @@
     "blanket": {
       "pattern": "lib",
       "data-cover-never": "node_modules"
-    }
+    },
+    "unitcov": "istanbul cover _mocha --recursive test/unit"
   },
   "bin": {
     "strider": "bin/strider"
