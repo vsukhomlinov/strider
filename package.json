@@ -79,7 +79,8 @@
       "pattern": "lib",
       "data-cover-never": "node_modules"
     },
-    "unitcov": "istanbul cover _mocha --recursive test/unit"
+    "unitcov": "istanbul cover _mocha --recursive test/unit",
+    "unitdev": "mocha -w --recursive test/unit -R min"
   },
   "bin": {
     "strider": "bin/strider"
