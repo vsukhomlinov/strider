@@ -7,7 +7,7 @@ var ProjectsController = require('./controllers/projects');
 
 var app = angular.module('projects', ['alerts', 'moment', 'ui.bootstrap.buttons'])
   .config(['$interpolateProvider', interpolate])
-  .controller('ManualController', ['$scope', '$attrs', ManualController])
+  .controller('ManualController', ['$scope', '$sce', ManualController])
   .controller('ProjectsController', ['$scope', ProjectsController])
 
 module.exports = app; 

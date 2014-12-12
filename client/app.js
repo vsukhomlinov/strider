@@ -6,6 +6,7 @@ var $ = require('jquery');
 var _ = require('lodash');
 var angular = require('angular');
 var ngRoute = require('angular-route');
+var ngSanitize = require('angular-sanitize');
 var $navbar = $('.navbar');
 
 $navbar.find('li').removeClass('active');

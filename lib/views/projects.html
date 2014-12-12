@@ -9,7 +9,11 @@
     var providers = {{ providers | scriptjson | raw }};
     var accounts = {{ currentUser.accounts | scriptjson | raw }};
     var repos = {{ repos | scriptjson | raw }};
-    var manualProjects = {{ manualProjects | scriptjson | raw }};
+    var globalVariables = {
+      manualProjects: {{ manualProjects | scriptjson | raw }},
+      manualProviders: {{ manual | scriptjson | raw }}
+    }
+
   </script>
 {% endpluginblock %}
 
@@ -152,55 +156,7 @@
         </div>
       </div>
       <div class="tab-pane" id="manual-setup">
-        {% for item in manual %}
-        <div id="manual-{{ loop.key }}" ng-controller="ManualController">
-          <form name="create{{ loop.key }}">
-            <h3>{{ item.provider.title }}</h3>
-            <div class="general">
-              <p>
-              <small>Public projects are visible to unauthenticated users.</small>
-              <div ng-model="public" class="btn public-btn" btn-checkbox>Public</div>
-              </p>
-
-              <p>
-              <small>Provides a link in the UI if you put a url there, so you can easily jump to viewing the repo on github or wherever</small>
-              <br/>
-              <input type="text" ng-model="display_url" placeholder="Display Url">
-              </p>
-
-              <p>
-              <small>A github-style namespace/name combination for the project. e.g. Strider-CD/strider</small>
-              <br/>
-              <input type="text" required ng-pattern="/[\w-]\/[\w-]/" ng-model="display_name" placeholder="Name">
-              </p>
-            </div>
-
-            <div class="provider-specific">
-              {{ item.provider.html | raw }}
-            </div>
-            <button ng-disabled="!create{{ loop.key }}.$valid" class="btn btn-primary" ng-click="create()">Create New</button>
-          </form>
-          <ul class="unstyled repo-list">
-            <li class="repo" ng-repeat="project in projects">
-              <div>
-                <a ng-show="project.display_url" href="[[ project.display_url ]]" target="_blank" class="hosted-url">
-                  <i class="fa fa-globe"></i>
-                </a>
-                <a class="view-jobs" href="/[[ project.name ]]/">[[ project.display_name ]]</a>
-              <div class="pull-right">
-                <button ng-show="project.really_remove" class="btn btn-danger" ng-click="remove(project)" ng-disabled="project.really_remove === 'removing'">
-                  <i class="fa fa-refresh fa-spin" ng-show="project.really_remove === 'removing'"></i>
-                  Really remove
-                </button>
-                <a href="/[[ project.name ]]/config" data-toggle="tooltip" title="Configure"><i class="fa fa-wrench"></i></a>
-                <button class="btn btn-danger" ng-click="project.really_remove = true" ng-disabled="project.really_remove">Remove</button>
-                <button ng-disabled="repo.adding" class="btn btn-primary" ng-click="repo.adding = 'pick-type'">Add</button>
-              </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-        {% endfor %}
+        {% include "projects_manual.html" %}
       </div>
     </div>
   </div>

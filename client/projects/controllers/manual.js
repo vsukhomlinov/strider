@@ -1,11 +1,14 @@
 'use strict';
 
-var $ = require('jquery');
+var $ = require('jquery'); //todo: replace with $http.put
 
-module.exports = function ($scope, $attrs) {
-  var provider = $attrs.id.split('-')[1];
+module.exports = function ($scope, $sce) {
   $scope.config = {};
-  $scope.projects = global.manualProjects[provider] || [];
+
+  $scope.providers = globalVariables.manualProviders;
+  $scope.projects = Object.keys(globalVariables.manualProjects).reduce(function (all, type) {
+    return all.concat(globalVariables.manualProjects[type]);
+  }, []);
   $scope.remove = function (project) {
     project.really_remove = 'removing';
     $.ajax('/' + project.name + '/', {
@@ -19,7 +22,10 @@ module.exports = function ($scope, $attrs) {
       }
     })
   };
-  $scope.create = function () {
+  $scope.markup = function(provider) {
+    return $sce.trustAsHtml(provider.provider.html);
+  };
+  $scope.create = function (provider) {
     var name = $scope.display_name.toLowerCase();
     if (!validName(name)) return;
     $.ajax('/' + name + '/', {
