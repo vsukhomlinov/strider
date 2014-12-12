@@ -39,10 +39,6 @@
           </li>
         {% endfor %}
 
-        <li class="pull-right">
-          <a href="#manual-setup" data-toggle="tab"{% if !currentUser.accounts.length %} class="active"{% endif %}>Manual Add</a>
-        </li>
-
         {% for provider in unconfigured %}
           <li>
             <a href="{{ provider.setupLink }}">
@@ -50,6 +46,11 @@
             </a>
           </li>
         {% endfor %}
+
+        <li><a href="#manual-setup" data-toggle="tab"
+          {% if !currentUser.accounts.length %} class="active"{% endif %}>Custom project</a>
+        </li>
+
       </ul>
     </div>
       <div class="notify-wrapper pull-right">

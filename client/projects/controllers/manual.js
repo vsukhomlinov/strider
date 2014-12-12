@@ -26,15 +26,15 @@ module.exports = function ($scope, $sce) {
     return $sce.trustAsHtml(provider.provider.html);
   };
   $scope.create = function (provider) {
-    var name = $scope.display_name.toLowerCase();
+    var name = provider.newJob.display_name.toLowerCase();
     if (!validName(name)) return;
     $.ajax('/' + name + '/', {
       type: 'PUT',
       contentType: 'application/json',
       data: JSON.stringify({
-        display_name: $scope.display_name,
-        display_url: $scope.display_url,
-        public: $scope.public,
+        display_name: provider.newJob.display_name,
+        display_url: provider.newJob.display_url,
+        public: provider.newJob.public,
         provider: {
           id: provider,
           config: $scope.config
@@ -42,9 +42,9 @@ module.exports = function ($scope, $sce) {
       }),
       success: function () {
         $scope.projects.push({
-          display_name: $scope.display_name,
-          name: $scope.display_name.replace(/ /g, '-').toLowerCase(),
-          display_url: $scope.display_url,
+          display_name: provider.newJob.display_name,
+          name: provider.newJob.display_name.replace(/ /g, '-').toLowerCase(),
+          display_url: provider.newJob.display_url,
           provider: {
             id: provider,
             config: $scope.config
