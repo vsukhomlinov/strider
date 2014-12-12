@@ -1,6 +1,7 @@
+
 <div ng-controller="ManualController">
   <div ng-repeat="(providerName, provider) in providers">
-    <form name="create{{ loop.key }}">
+    <form name="create_[[$index]]">
       <h3>[[provider.provider.title]]</h3>
 
       <div class="general">
@@ -23,9 +24,9 @@
           <input type="text" required ng-pattern="/[\w-]\/[\w-]/" ng-model="display_name" placeholder="Name">
         </p>
       </div>
+      <div plugin-template="provider.provider.html"></div>
 
-      <div class="provider-specific" ng-bind-html="markup(provider)"></div>
-      <button ng-disabled="!create{{ loop.key }}.$valid" class="btn btn-primary" ng-click="create(providerName)">
+      <button ng-disabled="!create_[[$index]].$valid" class="btn btn-primary" ng-click="create(providerName)">
         Create New
       </button>
     </form>
