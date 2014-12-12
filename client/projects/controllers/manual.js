@@ -25,34 +25,33 @@ module.exports = function ($scope, $sce) {
   $scope.markup = function(provider) {
     return $sce.trustAsHtml(provider.provider.html);
   };
-  $scope.create = function (provider) {
-    var name = provider.newJob.display_name.toLowerCase();
+  $scope.create = function (providerId, jobConfig) {
+    var name = jobConfig.display_name.toLowerCase();
     if (!validName(name)) return;
+    console.log($scope);
     $.ajax('/' + name + '/', {
       type: 'PUT',
       contentType: 'application/json',
       data: JSON.stringify({
-        display_name: provider.newJob.display_name,
-        display_url: provider.newJob.display_url,
-        public: provider.newJob.public,
+        display_name: jobConfig.display_name,
+        display_url: jobConfig.display_url,
+        public: jobConfig.public,
         provider: {
-          id: provider,
+          id: providerId,
           config: $scope.config
         }
       }),
       success: function () {
         $scope.projects.push({
-          display_name: provider.newJob.display_name,
-          name: provider.newJob.display_name.replace(/ /g, '-').toLowerCase(),
-          display_url: provider.newJob.display_url,
+          display_name: jobConfig.display_name,
+          name: jobConfig.display_name.replace(/ /g, '-').toLowerCase(),
+          display_url: jobConfig.display_url,
           provider: {
-            id: provider,
+            id: providerId,
             config: $scope.config
           }
         });
-        $scope.config = {};
-        $scope.display_name = '';
-        $scope.display_url = '';
+        $scope.newJob = {};
         $scope.success('Created project!', true);
       },
       error: function () {

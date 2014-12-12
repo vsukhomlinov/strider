@@ -32,7 +32,7 @@
         </div>
         <div plugin-template="provider.provider.html"></div>
 
-        <button ng-disabled="!create_[[$index]].$valid" class="btn btn-primary" ng-click="create(provider)">
+        <button ng-disabled="!create_[[$index]].$valid" class="btn btn-primary" ng-click="create(providerName, provider.newJob)">
           Create New
         </button>
       </form>
@@ -57,9 +57,6 @@
                 class="fa fa-wrench"></i></a>
             <button class="btn btn-danger" ng-click="project.really_remove = true"
                     ng-disabled="project.really_remove">Remove
-            </button>
-            <button ng-disabled="repo.adding" class="btn btn-primary"
-                    ng-click="repo.adding = 'pick-type'">Add
             </button>
           </div>
         </div>
