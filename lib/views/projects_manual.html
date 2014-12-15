@@ -14,25 +14,25 @@
         <div class="general">
           <p>
             <small>Public projects are visible to unauthenticated users.</small>
-          <div ng-model="provider.newJob.public" class="btn public-btn" btn-checkbox>Public</div>
+          <div ng-model="newProjectConfig.public" class="btn public-btn" btn-checkbox>Public</div>
           </p>
 
           <p>
             <small>External link to the project</small>
             <br/>
-            <input type="text" ng-model="provider.newJob.display_url" placeholder="External project URL">
+            <input type="text" ng-model="newProjectConfig.display_url" placeholder="External project URL">
           </p>
 
           <p>
             <small>A github-style namespace/name combination for the project. e.g. Strider-CD/strider</small>
             <br/>
-            <input type="text" required ng-pattern="/[\w-]\/[\w-]/" ng-model="provider.newJob.display_name"
+            <input type="text" required ng-pattern="/[\w-]\/[\w-]/" ng-model="newProjectConfig.display_name"
                    placeholder="user/repository">
           </p>
         </div>
         <div plugin-template="provider.provider.html"></div>
 
-        <button ng-disabled="!create_[[$index]].$valid" class="btn btn-primary" ng-click="create(providerName, provider.newJob)">
+        <button ng-disabled="!create_[[$index]].$valid" class="btn btn-primary" ng-click="create(providerName, newProjectConfig)">
           Create New
         </button>
       </form>
